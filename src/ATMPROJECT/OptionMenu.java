@@ -19,15 +19,16 @@ public class OptionMenu extends Account{
                 data.put(952141, 191904);
                 data.put(989947, 71976);
 
-                System.out.println("Welcome to the ATM Project!");
-                System.out.println("Enter your customer Number");
+                System.out.println("Welcome to the Wahome's ATM!");
+                System.out.print("Enter your customer Number: ");
                 setCustomerNumber(menuInput.nextInt());
 
                 System.out.print("Enter your PIN Number: ");
                 setPinNumber(menuInput.nextInt());
             } catch (Exception e) {
-                System.out.println("\n" + "Invalid Character(s)! Only Numbers are valid!" + "\n");
+                System.out.println("\n Invalid Character(s)! Only Numbers are valid!" + "\n");
                 x = 2;
+                continue;
             }
 
             int cn = getCustomerNumber();
@@ -36,9 +37,9 @@ public class OptionMenu extends Account{
             if (data.containsKey(cn) && data.get(cn) == pn) {
                 getAccountType();
             } else {
-                System.out.println("\n" + "Wrong Customer Number or PIN Number!" "\n");
-            } while (x == 1);
-        }
+                System.out.println("\n Wrong Customer Number or PIN Number!" + "\n");
+            }
+        } while (x == 1);
     }
 
     public void getAccountType() {
@@ -81,7 +82,7 @@ public class OptionMenu extends Account{
 
         switch (selection) {
             case 1:
-                System.out.println("Checking Account Balance: " + moneyFormat.format(getChecking()));
+                System.out.println("Checking Account Balance: " + moneyFormat.format(getSavingBalance()));
                 getAccountType();
                 break;
 
@@ -105,5 +106,39 @@ public class OptionMenu extends Account{
         }
     }
 
+    public void getSaving () {
+        System.out.println("Saving Account: ");
+        System.out.println(" Type 1 - View Balance");
+        System.out.println(" Type 2 - Withdraw Funds");
+        System.out.println(" Type 3 - Deposit Funds");
+        System.out.println(" Type 4 - Exit");
+        System.out.println("Choice: ");
 
+        int selection = menuInput.nextInt();
+
+        switch (selection) {
+            case 1:
+                System.out.println("Saving Account Balance: " + moneyFormat.format(getSavingBalance()));
+                getAccountType();
+                break;
+
+            case 2:
+                getSavingWithdrawInput();
+                getAccountType();
+                break;
+
+            case 3:
+                getSavingDepositInput();
+                getAccountType();
+                break;
+
+            case 4:
+                System.out.println("Thank you for using Wahome's ATM! Bye.");
+                break;
+
+            default:
+                System.out.println("\n" + "Invalid Choice." + "\n");
+                getChecking();
+        }
+    }
 }
